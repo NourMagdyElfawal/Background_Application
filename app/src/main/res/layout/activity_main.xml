@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/title"
+        android:text="@string/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#80000000"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"/>
+
 
     <TextView
         android:id="@+id/banner"
@@ -19,8 +38,7 @@
         android:gravity="center"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:visibility="gone"
-         />
+        app:layout_constraintBottom_toTopOf="@id/adView" />
 
 
     <ImageView
@@ -30,8 +48,9 @@
         android:src="@mipmap/star"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:visibility="gone"
-        >
+        app:layout_constraintBottom_toBottomOf="@+id/banner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/banner">
 
     </ImageView>
 
@@ -40,8 +59,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/share"
-        android:visibility="gone"
->
+        app:layout_constraintBottom_toBottomOf="@+id/banner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/banner">
+
     </ImageView>
     <ImageView
         android:id="@+id/background"
@@ -50,138 +72,30 @@
         android:src="@mipmap/background"
         android:layout_marginRight="20dp"
         android:layout_marginEnd="20dp"
-        android:visibility="gone"
->
+        app:layout_constraintBottom_toBottomOf="@+id/banner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/banner">
+
+
+
     </ImageView>
 
 
-</RelativeLayout>
+    <!-- set Banner ad position in UI layout design -->
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        ads:adUnitId="@string/admob_banner_id"/>
 
 
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".MainActivity">-->
-
-<!--    <androidx.viewpager.widget.ViewPager-->
-<!--        android:id="@+id/pager"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/title"-->
-<!--        android:text="@string/app_name"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:background="#80000000"-->
-<!--        android:gravity="center"-->
-<!--        android:textColor="@android:color/white"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintTop_toTopOf="parent"/>-->
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/banner"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:background="#80000000"-->
-<!--        android:gravity="center"-->
-<!--        android:textColor="@android:color/white"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent" />-->
-
-
-<!--    <ImageView-->
-<!--        android:id="@+id/star"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@mipmap/star"-->
-<!--        android:layout_marginLeft="20dp"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/banner"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/banner">-->
-
-<!--    </ImageView>-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/share"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@mipmap/share"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/banner"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/banner">-->
-
-<!--    </ImageView>-->
-<!--    <ImageView-->
-<!--        android:id="@+id/background"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@mipmap/background"-->
-<!--        android:layout_marginRight="20dp"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/banner"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/banner">-->
-
-<!--    </ImageView>-->
-
-
-
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-    <!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--    xmlns:tools="http://schemas.android.com/tools"-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="match_parent"-->
-    <!--    tools:context=".MainActivity">-->
-
-    <!--&lt;!&ndash;    <ImageView&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:id="@+id/imageView"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:background="@drawable/ic_launcher_background"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:layout_height="match_parent"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:layout_width="match_parent" />&ndash;&gt;-->
-    <!--    <android.support.v4.view.ViewPager-->
-
-    <!--        android:id="@+id/view_pager"-->
-
-    <!--        android:layout_width="match_parent"-->
-
-    <!--        android:layout_height="match_parent" />-->
-
-
-    <!--&lt;!&ndash;    <TextView&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:id="@+id/title"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:layout_height="70dp"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:background="#80000000"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:gravity="center"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:textColor="@android:color/white"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:textStyle="bold"&ndash;&gt;-->
-    <!--&lt;!&ndash;        app:layout_constraintBottom_toBottomOf="parent"/>&ndash;&gt;-->
-
-    <!--&lt;!&ndash;    <ImageButton&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:id="@+id/imageButton"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:layout_width="53dp"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:layout_height="84dp"&ndash;&gt;-->
-    <!--&lt;!&ndash;        app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
-    <!--&lt;!&ndash;        app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
-    <!--&lt;!&ndash;        tools:srcCompat="@mipmap/share" />&ndash;&gt;-->
-    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 

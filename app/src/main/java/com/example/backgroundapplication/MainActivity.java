@@ -18,9 +18,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
@@ -45,16 +48,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int indexOfImage = 0;
     ImageAdapter adapter;
     private InterstitialAd interstitial;
+    private AdView mAdView;
     TextView bannerTextView,titleTextView;
 
-    AlertDialog.Builder alertdialogbuilder;
+    AlertDialog.Builder alertdialogbuilder,alertdialogbuilderForExit;
 
     String[] AlertDialogItems = new String[]{
             "Set Background",
             "Set Screen Lock",
     };
 
-    List<String> ItemsIntoList=Arrays.asList(AlertDialogItems);;
+  final   List<String> ItemsIntoList=Arrays.asList(AlertDialogItems);;
 
     boolean[] SelectedTrueFalse = new boolean[]{
             false,
@@ -66,8 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-//        ImageButton imageButton=findViewById (R.id.imageButton);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
@@ -76,7 +81,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.setAdapter(adapter); // Here we are passing and setting the adapter for the images
 
         viewPager.setOnPageChangeListener(new MyPageChangeListener());
+
+        MobileAds.initialize(this,
+                "ca-app-pub-9975967949099489~8549084451");
+
         InterstitialAdmob();
+
+        // Find Banner ad
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        // Display Banner ad
+        mAdView.loadAd(adRequest);
+
+
         imgStar=findViewById(R.id.star);
         imgShare=findViewById(R.id.share);
         imgBackground=findViewById(R.id.background);
@@ -88,27 +105,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgShare.setOnClickListener(this);
         imgBackground.setOnClickListener(this);
 
-//        adapter.imageView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                bannerTextView.setVisibility(View.GONE);
-//                titleTextView.setVisibility(View.GONE);
-//                imgStar.setVisibility(View.GONE);
-//                imgShare.setVisibility(View.GONE);
-//                imgBackground.setVisibility(View.GONE);
-//
-//                return true;
-//            }
-//        });
-
 
 
     }
 
+
     private void InterstitialAdmob() {
 
-        MobileAds.initialize(this,
-                "ca-app-pub-9975967949099489~8549084451");
 
         // Prepare the Interstitial Ad
         interstitial = new InterstitialAd(this);
@@ -124,15 +127,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         });
 
-//        Button but1 = (Button)findViewById(R.id.InterstitialAds);
-//        but1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                prepareAd();
-//            }
-//        });
-//
 
     }
 
@@ -195,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void ShowDialog() {
         alertdialogbuilder = new AlertDialog.Builder(MainActivity.this);
 
-        ItemsIntoList = Arrays.asList(AlertDialogItems);
+//        ItemsIntoList = Arrays.asList(AlertDialogItems);
 
         alertdialogbuilder.setMultiChoiceItems(AlertDialogItems, SelectedTrueFalse, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -203,9 +197,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Get the current focused item
                 String currentItem = ItemsIntoList.get(which);
 
-                // Notify the current action
-                Toast.makeText(getApplicationContext(),
-                        currentItem , Toast.LENGTH_SHORT).show();
+//                // Notify the current action
+//                Toast.makeText(getApplicationContext(),
+//                        currentItem , Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -229,6 +223,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }else if(ItemsIntoList.get(i).equalsIgnoreCase("Set Screen Lock")){
                             LockScreen();
                         }
+                        prepareAd();
+
                     }
                 }
 
@@ -245,8 +241,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         dialog.show();
     }
-
-
 
 
 
@@ -296,7 +290,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             myWallpaperManager.suggestDesiredDimensions(width, height);
 
             Toast.makeText(this, "Successfully Wallpaper Set", Toast.LENGTH_LONG).show();
-            prepareAd();
 
 
         } catch (IOException e) {
@@ -368,6 +361,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onPageScrollStateChanged(int state) {
 
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //Handle the back button
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            //Ask the user if they want to quit
+            alertdialogbuilderForExit = new AlertDialog.Builder(MainActivity.this);
+            alertdialogbuilderForExit
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage("هل تريد تقييم البرنامج؟")
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=M.3.H.D"));
+                                startActivity(browserIntent);
+
+                        }
+
+                    })
+
+                    .setNeutralButton("خروج", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Stop the activity
+                            MainActivity.this.finish();
+
+                        }
+                    });
+            AlertDialog dialog = alertdialogbuilderForExit.create();
+
+                    dialog.show();
+
+            return true;
+        }
+        else {
+            return super.onKeyDown(keyCode, event);
+        }
+
     }
 }
 

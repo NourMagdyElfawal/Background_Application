@@ -432,7 +432,7 @@ public class ImageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
+        container.removeView((ImageView) object);
 
     }
 
@@ -450,22 +450,16 @@ public class ImageAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View imageLayout = inflater.inflate(R.layout.slidingimages_layout, container, false);
-
-        assert imageLayout != null;
-        final ImageView imageView =imageLayout.findViewById(R.id.image);
 
 
-        //imageView = new ImageView(context);
+        imageView = new ImageView(context);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setImageResource(GalImages[position]);
 
-        if(imageView.getParent() != null) {
-            ((ViewGroup)imageView.getParent()).removeView(imageView); // <- fix
-        }
 
-        container.addView(imageLayout, 0);
+        container.addView(imageView, 0);
 
-        return imageLayout;
+        return imageView;
     }
 
 

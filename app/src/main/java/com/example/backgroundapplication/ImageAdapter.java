@@ -453,6 +453,7 @@ public class ImageAdapter extends PagerAdapter {
 
 
         imageView = new ImageView(context);
+//        imageView.setId(0x000);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setImageResource(GalImages[position]);
 

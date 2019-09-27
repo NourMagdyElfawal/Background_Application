@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.viewpager.widget.ViewPager;
-
 import android.app.WallpaperManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,6 +32,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView imgStar,imgShare,imgBackground;
 
 
-    Bitmap bitmap1, bitmap2 ;
+    public Bitmap bitmap1, bitmap2 ;
     DisplayMetrics displayMetrics ;
     int width, height;
     private int indexOfImage = 0;
@@ -75,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+//        viewPager.generateViewId();
+//        viewPager.setId(R.id.ViewPagerIds);
+
 
         adapter = new ImageAdapter(this); //Here we are defining the Imageadapter object
 
@@ -82,8 +86,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         viewPager.setOnPageChangeListener(new MyPageChangeListener());
 
-        MobileAds.initialize(this,
-                "ca-app-pub-9975967949099489~8549084451");
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+
+            }
+        });
 
         InterstitialAdmob();
 
@@ -277,6 +285,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         int id=adapter.GalImages[indexOfImage];
         bitmap1 = BitmapFactory.decodeResource(getResources(), id);
+
 
         GetScreenWidthHeight();
         SetBitmapSize();

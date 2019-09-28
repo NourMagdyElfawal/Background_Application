@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //        alertdialogbuilder.setTitle("Select Subjects Here");
 
-        alertdialogbuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alertdialogbuilder.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -226,9 +226,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     boolean checked = SelectedTrueFalse[i];
                     if (checked) {
 
-                        if(ItemsIntoList.get(i).equalsIgnoreCase("Set Background")) {
+                        if(ItemsIntoList.get(i).equalsIgnoreCase("تعيين خلفية للهاتف")) {
                             HomeWallpaper();
-                        }else if(ItemsIntoList.get(i).equalsIgnoreCase("Set Screen Lock")){
+                        }else if(ItemsIntoList.get(i).equalsIgnoreCase("تعيين صورة خلفية للقفل")){
                             LockScreen();
                         }
                         prepareAd();
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        alertdialogbuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        alertdialogbuilder.setNeutralButton("خروج", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             myWallpaperManager.suggestDesiredDimensions(width, height);
 
-            Toast.makeText(this, "Successfully Wallpaper Set", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "تم تعيين خلفية الهاتف بنجاح", Toast.LENGTH_LONG).show();
 
 
         } catch (IOException e) {
@@ -323,7 +323,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 myWallpaperManager.setBitmap(bitmap2, null, true, WallpaperManager.FLAG_LOCK);
-                Toast.makeText(this, "Successfully  Set Lock Screen", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "تم تعيين خلفية القفل بنجاح", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(this, "نأسف هذا الهاتف لا يتمتع بهذه الخاصية  ", Toast.LENGTH_LONG).show();
+
             }
 
         } catch (IOException e) {

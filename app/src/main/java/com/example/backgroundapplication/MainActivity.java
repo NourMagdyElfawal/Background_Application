@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     AlertDialog.Builder alertdialogbuilder,alertdialogbuilderForExit;
 
     String[] AlertDialogItems = new String[]{
-            "Set Background",
-            "Set Screen Lock",
+            "تعيين خلفية للهاتف",
+            "تعيين صورة خلفية للقفل",
     };
 
   final   List<String> ItemsIntoList=Arrays.asList(AlertDialogItems);;

@@ -261,8 +261,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void ShareApplication() {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        String shareBody = "Your body here";
-        String shareSub = "Your subject here";
+        String shareBody = "خلفيات طيور الزينة HD";
+        String shareSub = "https://play.google.com/store/apps/details?id=com.bird.backgroundapplication";
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSub);
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         startActivity(Intent.createChooser(sharingIntent, "Share using"));
@@ -388,7 +388,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=M.3.H.D"));
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.bird.backgroundapplication"));
                                 startActivity(browserIntent);
 
                         }

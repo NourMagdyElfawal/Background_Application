@@ -2,6 +2,7 @@ package com.example.backgroundapplication;
 
 import android.content.Context;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -432,6 +433,8 @@ public class ImageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+                Log.e("garbaging", "garbaging imageview at: " + position);
+
         container.removeView((ImageView) object);
 
     }
@@ -446,6 +449,17 @@ public class ImageAdapter extends PagerAdapter {
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view.equals(object);
     }
+
+//    @Override
+//    public void destroyItem(@NonNull View container, int position, @NonNull Object object) {
+//        Log.e("garbaging", "garbaging imageview at: " + position);
+//        View view = (View) object;
+//        ((ViewPager) container).removeView(view);
+//        container= null;
+//
+//    }
+
+
 
     @NonNull
     @Override

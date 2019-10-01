@@ -261,8 +261,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void ShareApplication() {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        String shareBody = "خلفيات طيور الزينة HD";
-        String shareSub = "https://play.google.com/store/apps/details?id=com.bird.backgroundapplication";
+        String shareBody = "https://play.google.com/store/apps/details?id=com.bird.backgroundapplication";
+        String shareSub = "خلفيات طيور الزينة HD";
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSub);
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         startActivity(Intent.createChooser(sharingIntent, "Share using"));
